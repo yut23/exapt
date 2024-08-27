@@ -1,0 +1,60 @@
+{
+    "clears/trash_world_news_1": {
+        "puzzleId": "PB000",
+        "completed": true,
+        "statistics": {
+            "cycles": 4,
+            "size": 3,
+            "activity": 2
+        }
+    },
+    "clears/trash_world_news_2": {
+        "puzzleId": "PB001",
+        "completed": true,
+        "statistics": {
+            "cycles": 7,
+            "size": 6,
+            "activity": 2
+        }
+    },
+    "clears/trash_world_news_3": {
+        "puzzleId": "PB037",
+        "completed": true,
+        "statistics": {
+            "cycles": 9,
+            "size": 12,
+            "activity": 4
+        }
+    },
+    "clears/trash_world_news_4": {
+        "puzzleId": "PB002",
+        "completed": true,
+        "statistics": {
+            "cycles": 307,
+            "size": 10,
+            "activity": 2
+        }
+    },
+    "clears/euclids_pizza": {
+        "puzzleId": "PB003B",
+        "completed": true,
+        "statistics": {
+            "cycles": 24,
+            "size": 11,
+            "activity": 5
+        }
+    },
+    "max_cycles": {
+        "puzzleId": "PB001",
+        "completed": true,
+        "statistics": {
+            "cycles": 999999,
+            "size": 23,
+            "activity": 2
+        }
+    },
+    "max_cycles_plus_one": {
+        "puzzleId": "PB001",
+        "completed": false
+    }
+}
