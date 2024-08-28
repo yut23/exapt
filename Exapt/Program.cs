@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Exapt;
 
@@ -10,7 +10,7 @@ public static class Program
         Initialize(args[0]);
 
         SolutionData result = Simulate(args[1]);
-        Console.WriteLine(JsonSerializer.Serialize(result));
+        Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
     public static void Initialize(string exapunksDirectory)

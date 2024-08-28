@@ -1,27 +1,25 @@
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Exapt;
 
+[JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
 public record SolutionData : IEquatable<SolutionData>
 {
-    [JsonPropertyName("puzzleId")]
     public required string PuzzleId { get; set; }
 
-    [JsonPropertyName("completed")]
     public bool Completed => Statistics is not null;
 
-    [JsonPropertyName("statistics")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public SolutionStatistics? Statistics { get; set; }
 }
 
+[JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
 public record SolutionStatistics
 {
-    [JsonPropertyName("cycles")]
     public required int Cycles { get; set; }
 
-    [JsonPropertyName("size")]
     public required int Size { get; set; }
 
-    [JsonPropertyName("activity")]
     public required int Activity { get; set; }
 }
