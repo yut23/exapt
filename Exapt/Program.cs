@@ -3,17 +3,61 @@
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using System.Reflection;
+using CommandLine;
+using CommandLine.Text;
 using Newtonsoft.Json;
 
 namespace Exapt;
 
 public static class Program
 {
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
+    private sealed class Arguments
+    {
+        [Value(
+            0,
+            MetaName = "solution-file",
+            HelpText = "The path to the solution file to be validated.",
+            Required = true
+        )]
+        public required string SolutionFilepath { get; set; }
+
+        [Option(
+            'e',
+            "exapunks-directory",
+            HelpText = "A path to the root directory of the 2022-10-13 Windows version of Exapunks",
+            Required = true
+        )]
+        public required string ExapunksDirectory { get; set; }
+    }
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
+
     private static void Main(string[] args)
     {
-        Initialize(args[0]);
+        Parser parser = new(p => p.HelpWriter = null);
+        ParserResult<Arguments> parserResult = parser.ParseArguments<Arguments>(args);
+        _ = parserResult
+            .WithParsed(InnerMain)
+            .WithNotParsed(_ =>
+                Console.Error.Write(
+                    HelpText.AutoBuild(
+                        parserResult,
+                        h =>
+                        {
+                            h.AdditionalNewLineAfterOption = false;
+                            return h;
+                        }
+                    )
+                )
+            );
+        parser.Dispose();
+    }
 
-        SolutionData result = Simulate(args[1]);
+    private static void InnerMain(Arguments arguments)
+    {
+        Initialize(arguments.ExapunksDirectory);
+
+        SolutionData result = Simulate(arguments.SolutionFilepath);
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
