@@ -15,7 +15,7 @@ public class Solution
     internal Solution(string solutionFilepath)
     {
         inner =
-            Wrappers.Solution.FromFile(solutionFilepath)
+            Wrappers.Solution.FromFile(Path.GetFullPath(solutionFilepath))
             ?? throw new SolutionFileLoadException("Failed to load solution file");
 
         // Create a dummy Simulation instance to assemble code

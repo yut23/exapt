@@ -34,9 +34,10 @@ public static class Program
                 : null;
         };
 
+        Wrappers.Meta.Globals.ExapunksDirectory = exapunksDirectory;
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
-        Wrappers.Strings.Initialize(exapunksDirectory);
-        Wrappers.Puzzles.Initialize(exapunksDirectory);
+        Wrappers.Strings.Initialize();
+        Wrappers.Puzzles.Initialize();
     }
 
     public static SolutionData Simulate(string solutionFile)

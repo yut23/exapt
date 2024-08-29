@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public class Solution : NonStaticWrapper<Solution>
+public class Solution : Meta.NonStaticWrapper<Solution>
 {
     public PuzzleId PuzzleId => new(Call("#=q0bXK6vTpnQXmi0XWqqn0yA==")!);
 

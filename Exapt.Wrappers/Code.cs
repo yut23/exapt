@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public class Code : NonStaticWrapper<Code>
+public class Code : Meta.NonStaticWrapper<Code>
 {
     internal Code(object inner)
         : base(inner) { }

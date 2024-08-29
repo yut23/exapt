@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public class PuzzleId : NonStaticWrapper<PuzzleId>
+public class PuzzleId : Meta.NonStaticWrapper<PuzzleId>
 {
     public string Id => (string)Get("ID")!;
 

@@ -4,7 +4,7 @@
 
 namespace Exapt.Tests;
 
-public sealed class MissingEnvironmentVariableException : Exception
+public class MissingEnvironmentVariableException : Exception
 {
     public MissingEnvironmentVariableException() { }
 

@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-internal sealed class Maybe : NonStaticWrapper<Maybe>
+internal sealed class Maybe : Meta.NonStaticWrapper<Maybe>
 {
     internal Maybe(object inner)
         : base(inner) { }

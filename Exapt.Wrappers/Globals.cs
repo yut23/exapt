@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Exapt.Wrappers;
 
-public class Globals : StaticWrapper<Globals>
+public class Globals : Meta.StaticWrapper<Globals>
 {
     static Globals()
     {

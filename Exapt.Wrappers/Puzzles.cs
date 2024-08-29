@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Exapt.Wrappers;
 
-public class Puzzles : StaticWrapper<Puzzles>
+public class Puzzles : Meta.StaticWrapper<Puzzles>
 {
     private static bool initialized = false;
 
@@ -15,11 +15,11 @@ public class Puzzles : StaticWrapper<Puzzles>
         SetWrappedType("Puzzles");
     }
 
-    public static void Initialize(string exapunksDirectory)
+    public static void Initialize()
     {
         if (!initialized)
         {
-            Utils.WithWorkingDirectory(exapunksDirectory, () => CallStatic("#=qmvy28H$Ax5rPhkJqrGFbUg=="));
+            _ = CallStatic("#=qmvy28H$Ax5rPhkJqrGFbUg==");
             initialized = true;
         }
     }

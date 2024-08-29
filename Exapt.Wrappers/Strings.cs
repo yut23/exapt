@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public class Strings : StaticWrapper<Strings>
+public class Strings : Meta.StaticWrapper<Strings>
 {
     private static bool initialized = false;
 
@@ -13,11 +13,11 @@ public class Strings : StaticWrapper<Strings>
         SetWrappedType("#=q$q_5RIWNSfdbsTA5NIdJHA==");
     }
 
-    public static void Initialize(string exapunksDirectory)
+    public static void Initialize()
     {
         if (!initialized)
         {
-            Utils.WithWorkingDirectory(exapunksDirectory, () => CallStatic("#=q2IcpkAiRPnhyxP4lHls68w=="));
+            _ = CallStatic("#=q2IcpkAiRPnhyxP4lHls68w==");
             initialized = true;
         }
     }

@@ -4,7 +4,7 @@
 
 using System.Reflection;
 
-namespace Exapt.Wrappers;
+namespace Exapt.Wrappers.Meta;
 
 internal static class Utils
 {
@@ -57,11 +57,12 @@ internal static class Utils
         return method.Invoke(receiver, [.. arguments]);
     }
 
-    internal static void WithWorkingDirectory(string directory, Action action)
+    internal static T WithWorkingDirectory<T>(string directory, Func<T> func)
     {
         string originalDirectory = Directory.GetCurrentDirectory();
         Directory.SetCurrentDirectory(directory);
-        action();
+        T returnValue = func();
         Directory.SetCurrentDirectory(originalDirectory);
+        return returnValue;
     }
 }

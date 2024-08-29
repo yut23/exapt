@@ -2,7 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-namespace Exapt.Wrappers;
+namespace Exapt.Wrappers.Meta;
 
 public abstract class NonStaticWrapper<T>(object inner) : Wrapper<T>
 {
@@ -49,6 +49,9 @@ public class Wrapper<T>
 
     protected static object? CallStatic(string methodName, params object[] arguments)
     {
-        return Utils.CallStatic(WrappedType, methodName, arguments);
+        return Utils.WithWorkingDirectory(
+            Globals.ExapunksDirectory!,
+            () => Utils.CallStatic(WrappedType, methodName, arguments)
+        );
     }
 }

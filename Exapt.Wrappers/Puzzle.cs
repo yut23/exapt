@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public class Puzzle : NonStaticWrapper<Puzzle>
+public class Puzzle : Meta.NonStaticWrapper<Puzzle>
 {
     internal Puzzle(object inner)
         : base(inner) { }

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Exapt.Wrappers;
 
-public class Simulation : NonStaticWrapper<Simulation>
+public class Simulation : Meta.NonStaticWrapper<Simulation>
 {
     public bool Completed => (bool)Call("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")!;
     public int Cycles => (int)Call("#=q6Z2p0iddfrFXKSNmGS9UBQ==")!;
@@ -35,12 +35,12 @@ public class Simulation : NonStaticWrapper<Simulation>
         MethodInfo castToDictionaryValueMethod = typeof(Enumerable)
             .GetMethod("Cast")!
             .MakeGenericMethod(Type.GetType("SolutionExa, Burbank")!);
-        object convertedSolutionExas = Utils.CallConstructor(dictionaryType)!;
+        object convertedSolutionExas = Meta.Utils.CallConstructor(dictionaryType)!;
         foreach (KeyValuePair<Team, IEnumerable<SolutionExa>> pair in solutionExas)
         {
             object key = pair.Key;
             object value = castToDictionaryValueMethod.Invoke(null, [pair.Value.Select(e => e.Inner)])!;
-            _ = Utils.CallNonStatic(convertedSolutionExas, "Add", key, value);
+            _ = Meta.Utils.CallNonStatic(convertedSolutionExas, "Add", key, value);
         }
 
         object inner = CallStatic(
