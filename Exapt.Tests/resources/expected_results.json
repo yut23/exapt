@@ -44,6 +44,195 @@
             "activity": 5
         }
     },
+    "clears/left_arm": {
+        "puzzleId": "PB004",
+        "completed": true,
+        "statistics": {
+            "cycles": 42,
+            "size": 17,
+            "activity": 70
+        }
+    },
+    "clears/last_stop_snaxnet_1": {
+        "puzzleId": "PB005",
+        "completed": true,
+        "statistics": {
+            "cycles": 29,
+            "size": 11,
+            "activity": 2
+        }
+    },
+    "clears/zebros_copies": {
+        "puzzleId": "PB006B",
+        "completed": true,
+        "statistics": {
+            "cycles": 107,
+            "size": 24,
+            "activity": 3
+        }
+    },
+    "clears/sfcta_highway_sign": {
+        "puzzleId": "PB007",
+        "completed": true,
+        "statistics": {
+            "cycles": 140,
+            "size": 10,
+            "activity": 1
+        }
+    },
+    "clears/unknown_network_1": {
+        "puzzleId": "PB008",
+        "completed": true,
+        "statistics": {
+            "cycles": 15,
+            "size": 47,
+            "activity": 27
+        }
+    },
+    "clears/uc_berkeley": {
+        "puzzleId": "PB009",
+        "completed": true,
+        "statistics": {
+            "cycles": 407,
+            "size": 37,
+            "activity": 7
+        }
+    },
+    "clears/workhouse": {
+        "puzzleId": "PB010B",
+        "completed": true,
+        "statistics": {
+            "cycles": 552,
+            "size": 29,
+            "activity": 2
+        }
+    },
+    "clears/equity_first_bank_1": {
+        "puzzleId": "PB012",
+        "completed": true,
+        "statistics": {
+            "cycles": 3015,
+            "size": 23,
+            "activity": 10
+        }
+    },
+    "clears/heart": {
+        "puzzleId": "PB011B",
+        "completed": true,
+        "statistics": {
+            "cycles": 108,
+            "size": 34,
+            "activity": 7
+        }
+    },
+    "clears/trash_world_news_5": {
+        "puzzleId": "PB013C",
+        "completed": true,
+        "statistics": {
+            "cycles": 3549,
+            "size": 31,
+            "activity": 4
+        }
+    },
+    "clears/tec_redshift": {
+        "puzzleId": "PB015",
+        "completed": true,
+        "statistics": {
+            "cycles": 2467,
+            "size": 50,
+            "activity": 2452
+        }
+    },
+    "clears/digital_library_project": {
+        "puzzleId": "PB016",
+        "completed": true,
+        "statistics": {
+            "cycles": 744,
+            "size": 66,
+            "activity": 47
+        }
+    },
+    "clears/tec_exa_blaster_modem_1": {
+        "puzzleId": "PB040",
+        "completed": true,
+        "statistics": {
+            "cycles": 176,
+            "size": 64,
+            "activity": 27
+        }
+    },
+    "clears/emersons_guide": {
+        "puzzleId": "PB018",
+        "completed": true,
+        "statistics": {
+            "cycles": 52,
+            "size": 40,
+            "activity": 6
+        }
+    },
+    "clears/left_hand": {
+        "puzzleId": "PB038",
+        "completed": true,
+        "statistics": {
+            "cycles": 49,
+            "size": 46,
+            "activity": 24
+        }
+    },
+    "clears/sawayama_wonderdisc": {
+        "puzzleId": "PB020",
+        "completed": true,
+        "statistics": {
+            "cycles": 7234,
+            "size": 50,
+            "activity": 64
+        }
+    },
+    "clears/alliance_power_and_light": {
+        "puzzleId": "PB021",
+        "completed": true,
+        "statistics": {
+            "cycles": 25,
+            "size": 58,
+            "activity": 40
+        }
+    },
+    "clears/xtreme_league_baseball": {
+        "puzzleId": "PB023",
+        "completed": true,
+        "statistics": {
+            "cycles": 123,
+            "size": 59,
+            "activity": 9
+        }
+    },
+    "clears/kings_ransom_online": {
+        "puzzleId": "PB024",
+        "completed": true,
+        "statistics": {
+            "cycles": 51,
+            "size": 35,
+            "activity": 25
+        }
+    },
+    "clears/kgog_tv": {
+        "puzzleId": "PB028",
+        "completed": true,
+        "statistics": {
+            "cycles": 324,
+            "size": 74,
+            "activity": 14
+        }
+    },
+    "clears/equity_first_bank_2": {
+        "puzzleId": "PB025",
+        "completed": true,
+        "statistics": {
+            "cycles": 54,
+            "size": 51,
+            "activity": 8
+        }
+    },
     "max_cycles": {
         "puzzleId": "PB001",
         "completed": true,
