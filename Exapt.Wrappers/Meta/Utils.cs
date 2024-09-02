@@ -44,7 +44,7 @@ internal static class Utils
         ConstructorInfo constructor =
             type.GetConstructor(arguments.Select(a => a.GetType()).ToArray())
             ?? throw new FindMemberException($@"Failed to find constructor for type ""${type.AssemblyQualifiedName}""");
-        return constructor.Invoke(arguments);
+        return constructor.Invoke(BindingFlags.DoNotWrapExceptions, null, arguments, null);
     }
 
     internal static object? Call(Type type, string methodName, object? receiver, params object[] arguments)
@@ -54,7 +54,7 @@ internal static class Utils
             ?? throw new FindMemberException(
                 $@"Failed to find method ""{methodName}"" in type ""${type.AssemblyQualifiedName}"""
             );
-        return method.Invoke(receiver, [.. arguments]);
+        return method.Invoke(receiver, BindingFlags.DoNotWrapExceptions, null, [.. arguments], null);
     }
 
     internal static T WithWorkingDirectory<T>(string directory, Func<T> func)
