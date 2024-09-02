@@ -233,6 +233,78 @@
             "activity": 8
         }
     },
+    "clears/tec_exa_blaster_modem_2": {
+        "puzzleId": "PB026B",
+        "completed": true,
+        "statistics": {
+            "cycles": 1364,
+            "size": 70,
+            "activity": 9
+        }
+    },
+    "clears/last_stop_snaxnet_2": {
+        "puzzleId": "PB029B",
+        "completed": true,
+        "statistics": {
+            "cycles": 246,
+            "size": 78,
+            "activity": 29
+        }
+    },
+    "clears/visual_cortex": {
+        "puzzleId": "PB030",
+        "completed": true,
+        "statistics": {
+            "cycles": 396,
+            "size": 39,
+            "activity": 11
+        }
+    },
+    "clears/holman_dynamics": {
+        "puzzleId": "PB032",
+        "completed": true,
+        "statistics": {
+            "cycles": 7920,
+            "size": 119,
+            "activity": 7
+        }
+    },
+    "clears/us_government": {
+        "puzzleId": "PB033",
+        "completed": true,
+        "statistics": {
+            "cycles": 1205,
+            "size": 142,
+            "activity": 48
+        }
+    },
+    "clears/unknown_network_2": {
+        "puzzleId": "PB034",
+        "completed": true,
+        "statistics": {
+            "cycles": 228,
+            "size": 38,
+            "activity": 63
+        }
+    },
+    "clears/tec_exa_blaster_modem_3": {
+        "puzzleId": "PB035B",
+        "completed": true,
+        "statistics": {
+            "cycles": 235,
+            "size": 98,
+            "activity": 81
+        }
+    },
+    "clears/cerebral_cortex": {
+        "puzzleId": "PB036",
+        "completed": true,
+        "statistics": {
+            "cycles": 22044,
+            "size": 146,
+            "activity": 57
+        }
+    },
     "max_cycles": {
         "puzzleId": "PB001",
         "completed": true,
