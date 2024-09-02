@@ -15,7 +15,10 @@ public abstract class NonStaticWrapper<T>(object inner) : Wrapper<T>
 
     protected object? Call(string methodName, params object[] arguments)
     {
-        return Utils.CallNonStatic(Inner, methodName, arguments);
+        return Utils.WithWorkingDirectory(
+            Globals.ExapunksDirectory!,
+            () => Utils.CallNonStatic(Inner, methodName, arguments)
+        );
     }
 
     protected static object? CallConstructor(params object[] arguments)
@@ -40,6 +43,11 @@ public class Wrapper<T>
     protected static void SetWrappedType(string typeName)
     {
         _wrappedType = Type.GetType($"{typeName}, Burbank")!;
+    }
+
+    protected static object? GetStatic(string fieldName)
+    {
+        return Utils.GetStatic(WrappedType, fieldName);
     }
 
     protected static void SetStatic(string fieldName, object? value)

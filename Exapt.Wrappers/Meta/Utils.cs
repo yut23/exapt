@@ -19,6 +19,16 @@ internal static class Utils
         return field.GetValue(receiver);
     }
 
+    internal static object? GetStatic(Type type, string fieldName)
+    {
+        FieldInfo field =
+            type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
+            ?? throw new FindMemberException(
+                $@"Failed to find field ""{fieldName}"" in type ""${type.AssemblyQualifiedName}"""
+            );
+        return field.GetValue(null);
+    }
+
     internal static void SetStatic(Type type, string fieldName, object? value)
     {
         FieldInfo field =
@@ -50,7 +60,10 @@ internal static class Utils
     internal static object? Call(Type type, string methodName, object? receiver, params object[] arguments)
     {
         MethodInfo method =
-            type.GetMethod(methodName)
+            type.GetMethod(
+                methodName,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance
+            )
             ?? throw new FindMemberException(
                 $@"Failed to find method ""{methodName}"" in type ""${type.AssemblyQualifiedName}"""
             );

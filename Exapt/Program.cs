@@ -82,6 +82,10 @@ public static class Program
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
         Wrappers.Strings.Initialize();
         Wrappers.Puzzles.Initialize();
+        Wrappers.Renderer.Initialize(Wrappers.RendererType.Direct3D, false);
+        Wrappers.GameLogic.Instance = new Wrappers.GameLogic();
+        Wrappers.GameLogic.Instance.InitializeFontsA(() => { });
+        Wrappers.GameLogic.Instance.InitializeFontsB();
     }
 
     public static SolutionData Simulate(string solutionFile)

@@ -4,7 +4,7 @@
 
 namespace Exapt.Wrappers;
 
-public enum Team
+public enum Team : int
 {
     Player = 0,
 }
