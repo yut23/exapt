@@ -14,7 +14,7 @@ public class Test
     {
         Program.Initialize(
             Environment.GetEnvironmentVariable("EXAPUNKS_DIR")
-                ?? throw new MissingEnvironmentVariableException("""Environment variable "EXAPUNKS_DIR" not set""")
+                ?? throw new MissingEnvironmentVariableException(@"Environment variable ""EXAPUNKS_DIR"" not set")
         );
 
         JObject expectedResults = JObject.Parse(File.ReadAllText("resources/expected_results.json"))!;
@@ -25,7 +25,10 @@ public class Test
                 .Replace(".solution", "", StringComparison.Ordinal)
                 .Replace("\\", "/", StringComparison.Ordinal);
             SolutionData? expectedResult = expectedResults[expectedResultKey]?.ToObject<SolutionData>();
-            Assert.IsNotNull(expectedResult);
+            Assert.IsNotNull(
+                expectedResult,
+                $@"Failed to find solution key ""{expectedResultKey}"" in ""resources/expected_results.json"""
+            );
 
             SolutionData result = Program.Simulate(solutionFile);
             Assert.AreEqual(expectedResult, result);

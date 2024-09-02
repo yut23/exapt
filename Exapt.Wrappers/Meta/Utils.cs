@@ -14,7 +14,7 @@ internal static class Utils
         FieldInfo field =
             type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
             ?? throw new FindMemberException(
-                $"Failed to find field \"{fieldName}\" in type \"${type.AssemblyQualifiedName}\""
+                $@"Failed to find field ""{fieldName}"" in type ""${type.AssemblyQualifiedName}"""
             );
         return field.GetValue(receiver);
     }
@@ -24,7 +24,7 @@ internal static class Utils
         FieldInfo field =
             type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)
             ?? throw new FindMemberException(
-                $"Failed to find field \"{fieldName}\" in type \"${type.AssemblyQualifiedName}\""
+                $@"Failed to find field ""{fieldName}"" in type ""${type.AssemblyQualifiedName}"""
             );
         field.SetValue(null, value);
     }
@@ -43,7 +43,7 @@ internal static class Utils
     {
         ConstructorInfo constructor =
             type.GetConstructor(arguments.Select(a => a.GetType()).ToArray())
-            ?? throw new FindMemberException($"Failed to find constructor for type \"${type.AssemblyQualifiedName}\"");
+            ?? throw new FindMemberException($@"Failed to find constructor for type ""${type.AssemblyQualifiedName}""");
         return constructor.Invoke(arguments);
     }
 
@@ -52,7 +52,7 @@ internal static class Utils
         MethodInfo method =
             type.GetMethod(methodName)
             ?? throw new FindMemberException(
-                $"Failed to find method \"{methodName}\" in type \"${type.AssemblyQualifiedName}\""
+                $@"Failed to find method ""{methodName}"" in type ""${type.AssemblyQualifiedName}"""
             );
         return method.Invoke(receiver, [.. arguments]);
     }

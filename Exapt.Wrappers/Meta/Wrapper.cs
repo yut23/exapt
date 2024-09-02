@@ -28,7 +28,7 @@ public abstract class StaticWrapper<T> : Wrapper<T>
 {
     internal StaticWrapper()
     {
-        throw new MethodAccessException("Types inhering from StaticWrapper should not be instantiated.");
+        throw new MethodAccessException("Types inheriting from StaticWrapper should not be instantiated.");
     }
 }
 
