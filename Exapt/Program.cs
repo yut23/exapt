@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System.Diagnostics;
 using System.Reflection;
 using CommandLine;
 using CommandLine.Text;
@@ -94,10 +95,12 @@ public static class Program
 
         bool failed = false;
         int worstCycles = 0;
+        int? codeSize = null;
         int worstActivity = 0;
         for (int testIndex = 0; testIndex < 100; testIndex++)
         {
             Simulation simulation = solution.CreateSimulation(testIndex);
+            codeSize ??= simulation.CodeSize;
 
             for (int i = 0; i < 999999 && !simulation.Completed; i++)
             {
@@ -123,7 +126,7 @@ public static class Program
                 : new SolutionStatistics
                 {
                     Cycles = worstCycles,
-                    Size = solution.Size,
+                    Size = codeSize ?? throw new UnreachableException(),
                     Activity = worstActivity,
                 },
         };

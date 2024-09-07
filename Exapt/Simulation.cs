@@ -6,14 +6,19 @@ namespace Exapt;
 
 public class Simulation
 {
+    private readonly Solution solution;
+
     public bool Completed => inner.Completed;
     public int Cycles => inner.Cycles;
+    public int CodeSize => solution.Exas.Select(e => Wrappers.Simulation.CountCodeSize(e.Code)).Sum();
     public int Activity => inner.Activity;
 
     private readonly Wrappers.Simulation inner;
 
     internal Simulation(Solution solution, int testIndex)
     {
+        this.solution = solution;
+
         Dictionary<Wrappers.Team, IEnumerable<Wrappers.SolutionExa>> solutionExas =
             new() { { Wrappers.Team.Player, solution.Exas } };
         inner = Wrappers.Simulation.Create(
