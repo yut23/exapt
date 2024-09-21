@@ -42,6 +42,21 @@ public class Wrapper<T>
     private static readonly Type? _wrappedType = GetWrappedType();
     protected static Type WrappedType => _wrappedType!;
 
+    static Wrapper()
+    {
+        HarmonyLib.Harmony harmony = new(nameof(T));
+        foreach (MethodInfo method in typeof(T).GetMethods(BindingFlags.NonPublic | BindingFlags.Static))
+        {
+            MethodWrapperAttribute? wrapperAttribute = method.GetCustomAttribute<MethodWrapperAttribute>();
+            if (wrapperAttribute is not null)
+            {
+                _ = harmony
+                    .CreateReversePatcher(WrappedType.GetMethod(wrapperAttribute.InnerMethodName), method)
+                    .Patch();
+            }
+        }
+    }
+
     private static Type? GetWrappedType()
     {
         ClassWrapperAttribute? classWrapperAttribute = typeof(T).GetCustomAttribute<ClassWrapperAttribute>();

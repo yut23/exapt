@@ -10,7 +10,7 @@ namespace Exapt.Wrappers;
 [Meta.ClassWrapper("Sim")]
 public class Simulation : Meta.NonStaticWrapper<Simulation>
 {
-    public bool Completed => (bool)Call("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")!;
+    public bool Completed => InnerGetCompleted(Inner);
     public int Cycles => (int)Call("#=q6Z2p0iddfrFXKSNmGS9UBQ==")!;
     public int Activity => (int)Call("#=q24Y2a5fbidtcHWquAdDEIBgp$0kfXMpkH3qbYxIvP8g=")!;
 
@@ -51,11 +51,23 @@ public class Simulation : Meta.NonStaticWrapper<Simulation>
 
     public void Step()
     {
-        _ = Call("#=qajowlg6dle2da5dexjWRrQ==");
+        _ = InnerStep(Inner);
     }
 
     public static int CountCodeSize([NotNull] Code code)
     {
         return (int)CallStatic("#=q$bzjuqpJ4$1ZnJopcCnGHikwx30NyLQHmmR$fALl5MA=", code.Inner)!;
+    }
+
+    [Meta.MethodWrapper("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")]
+    private static bool InnerGetCompleted(object _)
+    {
+        return (bool)Meta.MethodWrapperAttribute.Stub();
+    }
+
+    [Meta.MethodWrapper("#=qajowlg6dle2da5dexjWRrQ==")]
+    private static object InnerStep(object _)
+    {
+        return Meta.MethodWrapperAttribute.Stub();
     }
 }
