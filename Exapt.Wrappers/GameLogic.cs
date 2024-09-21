@@ -3,11 +3,12 @@
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using System.Diagnostics.CodeAnalysis;
+using Exapt.Wrappers.Meta;
 
 namespace Exapt.Wrappers;
 
-[Meta.ClassWrapper("GameLogic")]
-public class GameLogic : Meta.NonStaticWrapper<GameLogic>
+[ClassWrapper("GameLogic")]
+public class GameLogic : NonStaticWrapper<GameLogic>
 {
     [DisallowNull]
     public static GameLogic Instance

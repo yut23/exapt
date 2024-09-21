@@ -4,11 +4,12 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Exapt.Wrappers.Meta;
 
 namespace Exapt.Wrappers;
 
-[Meta.ClassWrapper("Sim")]
-public class Simulation : Meta.NonStaticWrapper<Simulation>
+[ClassWrapper("Sim")]
+public class Simulation : NonStaticWrapper<Simulation>
 {
     public bool Completed => InnerGetCompleted(Inner);
     public int Cycles => (int)Call("#=q6Z2p0iddfrFXKSNmGS9UBQ==")!;
@@ -31,12 +32,12 @@ public class Simulation : Meta.NonStaticWrapper<Simulation>
         MethodInfo castToDictionaryValueMethod = typeof(Enumerable)
             .GetMethod("Cast")!
             .MakeGenericMethod(Type.GetType("SolutionExa, Burbank")!);
-        object convertedSolutionExas = Meta.Utils.CallConstructor(dictionaryType)!;
+        object convertedSolutionExas = Utils.CallConstructor(dictionaryType)!;
         foreach (KeyValuePair<Team, IEnumerable<SolutionExa>> pair in solutionExas)
         {
             object key = pair.Key;
             object value = castToDictionaryValueMethod.Invoke(null, [pair.Value.Select(e => e.Inner)])!;
-            _ = Meta.Utils.CallNonStatic(convertedSolutionExas, "Add", key, value);
+            _ = Utils.CallNonStatic(convertedSolutionExas, "Add", key, value);
         }
 
         object inner = CallStatic(
@@ -59,15 +60,15 @@ public class Simulation : Meta.NonStaticWrapper<Simulation>
         return (int)CallStatic("#=q$bzjuqpJ4$1ZnJopcCnGHikwx30NyLQHmmR$fALl5MA=", code.Inner)!;
     }
 
-    [Meta.MethodWrapper("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")]
+    [MethodWrapper("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")]
     private static bool InnerGetCompleted(object _)
     {
-        return (bool)Meta.MethodWrapperAttribute.Stub();
+        return (bool)MethodWrapperAttribute.Stub();
     }
 
-    [Meta.MethodWrapper("#=qajowlg6dle2da5dexjWRrQ==")]
+    [MethodWrapper("#=qajowlg6dle2da5dexjWRrQ==")]
     private static object InnerStep(object _)
     {
-        return Meta.MethodWrapperAttribute.Stub();
+        return MethodWrapperAttribute.Stub();
     }
 }

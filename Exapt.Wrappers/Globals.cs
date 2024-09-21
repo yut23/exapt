@@ -3,11 +3,12 @@
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using System.Diagnostics.CodeAnalysis;
+using Exapt.Wrappers.Meta;
 
 namespace Exapt.Wrappers;
 
-[Meta.ClassWrapper("#=q$O9G2KbklYQ6FwBlZ$EShQ==")]
-public class Globals : Meta.StaticWrapper<Globals>
+[ClassWrapper("#=q$O9G2KbklYQ6FwBlZ$EShQ==")]
+public class Globals : StaticWrapper<Globals>
 {
     public static void SetRandom([NotNull] Random random)
     {

@@ -3,11 +3,12 @@
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using System.Diagnostics.CodeAnalysis;
+using Exapt.Wrappers.Meta;
 
 namespace Exapt.Wrappers;
 
-[Meta.ClassWrapper("Puzzles")]
-public class Puzzles : Meta.StaticWrapper<Puzzles>
+[ClassWrapper("Puzzles")]
+public class Puzzles : StaticWrapper<Puzzles>
 {
     private static bool initialized = false;
 
