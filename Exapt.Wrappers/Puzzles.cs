@@ -6,14 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("Puzzles")]
 public class Puzzles : Meta.StaticWrapper<Puzzles>
 {
     private static bool initialized = false;
-
-    static Puzzles()
-    {
-        SetWrappedType("Puzzles");
-    }
 
     public static void Initialize()
     {

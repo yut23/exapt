@@ -7,16 +7,12 @@ using System.Reflection;
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("Sim")]
 public class Simulation : Meta.NonStaticWrapper<Simulation>
 {
     public bool Completed => (bool)Call("#=q9jlSbij7xzD7a5JTreHwgSlOVHw2c6NutHpXBargYEs=")!;
     public int Cycles => (int)Call("#=q6Z2p0iddfrFXKSNmGS9UBQ==")!;
     public int Activity => (int)Call("#=q24Y2a5fbidtcHWquAdDEIBgp$0kfXMpkH3qbYxIvP8g=")!;
-
-    static Simulation()
-    {
-        SetWrappedType("Sim");
-    }
 
     private Simulation(object inner)
         : base(inner) { }

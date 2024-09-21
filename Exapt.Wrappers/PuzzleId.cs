@@ -4,14 +4,10 @@
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("Puzzle")]
 public class PuzzleId : Meta.NonStaticWrapper<PuzzleId>
 {
     public string Id => (string)Get("ID")!;
-
-    static PuzzleId()
-    {
-        SetWrappedType("Puzzle");
-    }
 
     internal PuzzleId(object inner)
         : base(inner) { }

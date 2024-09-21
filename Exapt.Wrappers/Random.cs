@@ -4,10 +4,5 @@
 
 namespace Exapt.Wrappers;
 
-public class Random(ulong seed) : Meta.NonStaticWrapper<Random>(CallConstructor(seed)!)
-{
-    static Random()
-    {
-        SetWrappedType("ReliableRandom");
-    }
-}
+[Meta.ClassWrapper("ReliableRandom")]
+public class Random(ulong seed) : Meta.NonStaticWrapper<Random>(CallConstructor(seed)!) { }

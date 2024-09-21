@@ -4,6 +4,7 @@
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("Solution")]
 public class Solution : Meta.NonStaticWrapper<Solution>
 {
     public PuzzleId PuzzleId => new(Call("#=q0bXK6vTpnQXmi0XWqqn0yA==")!);
@@ -17,11 +18,6 @@ public class Solution : Meta.NonStaticWrapper<Solution>
             );
             return inners.Select(e => new SolutionExa(e));
         }
-    }
-
-    static Solution()
-    {
-        SetWrappedType("Solution");
     }
 
     internal Solution(object inner)

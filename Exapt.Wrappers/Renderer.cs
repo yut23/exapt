@@ -4,13 +4,9 @@
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("Renderer")]
 public class Renderer : Meta.StaticWrapper<Renderer>
 {
-    static Renderer()
-    {
-        SetWrappedType("Renderer");
-    }
-
     public static void Initialize(RendererType type, bool debugMode)
     {
         _ = CallStatic("#=qjnHbEJCc8TIMoikd2FebJA==", type, debugMode);

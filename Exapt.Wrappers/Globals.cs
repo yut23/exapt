@@ -6,13 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("#=q$O9G2KbklYQ6FwBlZ$EShQ==")]
 public class Globals : Meta.StaticWrapper<Globals>
 {
-    static Globals()
-    {
-        SetWrappedType("#=q$O9G2KbklYQ6FwBlZ$EShQ==");
-    }
-
     public static void SetRandom([NotNull] Random random)
     {
         SetStatic("#=qyD9BljpzrnFagKpRdzAf5A==", random.Inner);

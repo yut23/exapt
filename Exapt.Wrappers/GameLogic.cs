@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("GameLogic")]
 public class GameLogic : Meta.NonStaticWrapper<GameLogic>
 {
     [DisallowNull]
@@ -14,11 +15,6 @@ public class GameLogic : Meta.NonStaticWrapper<GameLogic>
         get => new(GetStatic("#=qEACwyfrjJQwoldN_MUIRWw==")!);
         set =>
             SetStatic("#=qEACwyfrjJQwoldN_MUIRWw==", (value ?? throw new ArgumentNullException(nameof(value))).Inner);
-    }
-
-    static GameLogic()
-    {
-        SetWrappedType("GameLogic");
     }
 
     public GameLogic(object inner)

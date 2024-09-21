@@ -4,14 +4,10 @@
 
 namespace Exapt.Wrappers;
 
+[Meta.ClassWrapper("#=q$q_5RIWNSfdbsTA5NIdJHA==")]
 public class Strings : Meta.StaticWrapper<Strings>
 {
     private static bool initialized = false;
-
-    static Strings()
-    {
-        SetWrappedType("#=q$q_5RIWNSfdbsTA5NIdJHA==");
-    }
 
     public static void Initialize()
     {
