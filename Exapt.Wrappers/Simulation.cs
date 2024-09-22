@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Exapt.Wrappers.Meta;
+using HarmonyLib;
 
 namespace Exapt.Wrappers;
 
@@ -14,6 +15,16 @@ public class Simulation : NonStaticWrapper<Simulation>
     public bool Completed => InnerGetCompleted(Inner);
     public int Cycles => (int)Call("#=q6Z2p0iddfrFXKSNmGS9UBQ==")!;
     public int Activity => (int)Call("#=q24Y2a5fbidtcHWquAdDEIBgp$0kfXMpkH3qbYxIvP8g=")!;
+
+    public IEnumerable<SimEntity> Entities =>
+        Enumerable
+            .Cast<object>((System.Collections.IEnumerable)Get("#=q5aeg_A8y67EWjoqZoAbaRw==")!)
+            .Select(simEntityInner => new SimEntity(simEntityInner));
+
+    public PuzzleSpecificState PuzzleSpecificState => new(Get("#=qFG0xJPPsuDX3$SwU$exm7U8J7bBymPTjhWxdMJU5CVA=")!);
+
+    private static readonly Harmony harmony = new(nameof(Simulation));
+    private static Func<Simulation, bool>? currentPuzzleCompleteCheckPrefix;
 
     private Simulation(object inner)
         : base(inner) { }
@@ -70,5 +81,28 @@ public class Simulation : NonStaticWrapper<Simulation>
     private static object InnerStep(object _)
     {
         return MethodWrapperAttribute.Stub();
+    }
+
+    public static void PatchPuzzleCompleteCheckPrefix(Func<Simulation, bool>? prefix)
+    {
+        static bool prefixWrapper(object __instance)
+        {
+            return currentPuzzleCompleteCheckPrefix!.Invoke(new(__instance));
+        }
+
+        harmony.UnpatchAll();
+
+        if (prefix is not null)
+        {
+            currentPuzzleCompleteCheckPrefix = prefix;
+
+            _ = harmony.Patch(
+                WrappedType.GetMethod(
+                    "#=q9xYcWbKgLb2qX8RtRXp5R7g6WnxOMCTSrr67Ge4e1ug=",
+                    BindingFlags.NonPublic | BindingFlags.Instance
+                ),
+                new HarmonyMethod(prefixWrapper)
+            );
+        }
     }
 }

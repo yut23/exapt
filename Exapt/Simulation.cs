@@ -33,4 +33,41 @@ public class Simulation
     {
         inner.Step();
     }
+
+    public static void UseOptimizationsForPuzzle(string puzzleId)
+    {
+        Wrappers.Simulation.PatchPuzzleCompleteCheckPrefix(
+            puzzleId switch
+            {
+                null => null,
+                "PB004" => PreliminaryLeftArmCheck, // left arm
+                "PB011B" => null, // heart
+                "PB038" => null, // left hand
+                "PB020" => PreliminarySawayamaWonderdiscCheck, // sawayama wonderdisc
+                "PB030" => null, // visual cortex
+                _ => PreliminaryLeaveNoTraceCheck,
+            }
+        );
+    }
+
+    private static bool PreliminaryLeaveNoTraceCheck(Wrappers.Simulation simulation)
+    {
+        return !simulation.Entities.Any(e => e.Team == Wrappers.Team.Player && e.IsSimExa());
+    }
+
+    private static bool PreliminaryLeftArmCheck(Wrappers.Simulation simulation)
+    {
+        Wrappers.LeftArmSpecificState leftArmSpecificState =
+            simulation.PuzzleSpecificState.AsLeftArmSpecificState()
+            ?? throw new InvalidPreliminaryCheckException("Simulation puzzle is not Left Arm");
+        return leftArmSpecificState.OutputValues.Count() == 30;
+    }
+
+    private static bool PreliminarySawayamaWonderdiscCheck(Wrappers.Simulation simulation)
+    {
+        Wrappers.SawayamaWonderdiscSpecialState leftArmSpecificState =
+            simulation.PuzzleSpecificState.AsSawayamaWonderdiscSpecificState()
+            ?? throw new InvalidPreliminaryCheckException("Simulation puzzle is not Sawayama Wonderdisc");
+        return leftArmSpecificState.OutputMatches.Count == 30;
+    }
 }

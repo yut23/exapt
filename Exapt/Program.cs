@@ -93,6 +93,8 @@ public static class Program
     {
         Solution solution = new(solutionFile);
 
+        Simulation.UseOptimizationsForPuzzle(solution.PuzzleId);
+
         bool failed = false;
         int worstCycles = 0;
         int? codeSize = null;
