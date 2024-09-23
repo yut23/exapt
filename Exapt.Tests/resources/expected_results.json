@@ -305,6 +305,87 @@
             "activity": 57
         }
     },
+    "clears/bloodlust_online": {
+        "puzzleId": "PB054",
+        "completed": true,
+        "statistics": {
+            "cycles": 197,
+            "size": 88,
+            "activity": 18
+        }
+    },
+    "clears/motor_vehicle_administration": {
+        "puzzleId": "PB053",
+        "completed": true,
+        "statistics": {
+            "cycles": 1530,
+            "size": 71,
+            "activity": 9
+        }
+    },
+    "clears/cybermyth_studios": {
+        "puzzleId": "PB050",
+        "completed": true,
+        "statistics": {
+            "cycles": 621,
+            "size": 150,
+            "activity": 95
+        }
+    },
+    "clears/us_department_of_defense": {
+        "puzzleId": "PB056",
+        "completed": true,
+        "statistics": {
+            "cycles": 8552,
+            "size": 125,
+            "activity": 365
+        }
+    },
+    "clears/netronics_net40_modem": {
+        "puzzleId": "PB051",
+        "completed": true,
+        "statistics": {
+            "cycles": 86333,
+            "size": 145,
+            "activity": 29
+        }
+    },
+    "clears/espanola_valley_high_school": {
+        "puzzleId": "PB057",
+        "completed": true,
+        "statistics": {
+            "cycles": 2913,
+            "size": 69,
+            "activity": 3
+        }
+    },
+    "clears/mitsuzen_d300_n": {
+        "puzzleId": "PB052",
+        "completed": true,
+        "statistics": {
+            "cycles": 48030,
+            "size": 113,
+            "activity": 1234
+        }
+    },
+    "clears/crystalair_international": {
+        "puzzleId": "PB055",
+        "completed": true,
+        "statistics": {
+            "cycles": 1386,
+            "size": 123,
+            "activity": 97
+        }
+    },
+    "clears/final": {
+        "puzzleId": "PB058",
+        "completed": true,
+        "statistics": {
+            "cycles": 12006,
+            "size": 98,
+            "activity": 21
+        }
+    },
     "max_cycles": {
         "puzzleId": "PB001",
         "completed": true,
