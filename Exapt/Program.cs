@@ -83,8 +83,19 @@ public static class Program
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
         Wrappers.Strings.Initialize();
         Wrappers.Puzzles.Initialize();
-        Wrappers.Renderer.Initialize(Wrappers.RendererType.Direct3D, false);
         Wrappers.GameLogic.Instance = new Wrappers.GameLogic();
+        try
+        {
+            Wrappers.Renderer.Initialize(Wrappers.RendererType.Direct3D, false);
+        }
+        catch (DllNotFoundException)
+        {
+            // loading D3D failed, try OpenGL instead
+            Wrappers.Renderer.Initialize(Wrappers.RendererType.OpenGl, false);
+            // note, this window won't actually be displayed, as the HIDDEN flag is
+            // passed to SDL_WindowCreate by default
+            Wrappers.GameLogic.Instance.CreateWindow("exapt", 640, 480, 0);
+        }
         Wrappers.GameLogic.Instance.InitializeFontsA(() => { });
         Wrappers.GameLogic.Instance.InitializeFontsB();
     }
