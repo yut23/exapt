@@ -66,9 +66,11 @@ public static class Program
 
     private static void InnerMain(Arguments arguments)
     {
+        // resolve the file path before the initialization messes with the CWD
+        string resolvedSolutionFilepath = Path.GetFullPath(arguments.SolutionFilepath);
         Initialize(arguments.ExapunksDirectory);
 
-        SolutionData result = Simulate(arguments.SolutionFilepath, arguments.Timeout);
+        SolutionData result = Simulate(resolvedSolutionFilepath, arguments.Timeout);
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
