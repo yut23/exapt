@@ -34,7 +34,7 @@ public class Test
             );
 
             Stopwatch stopwatch = Stopwatch.StartNew();
-            SolutionData result = Program.Simulate(solutionFile);
+            SolutionData result = Program.Simulate(solutionFile, 999999);
             stopwatch.Stop();
             TestContext.Progress.WriteLine($@"Solution ""{solutionFile}"" finished in {stopwatch.Elapsed}");
 

@@ -31,6 +31,14 @@ public static class Program
             Required = true
         )]
         public required string ExapunksDirectory { get; set; }
+
+        [Option(
+            't',
+            "timeout",
+            HelpText = "Cycles to run before timeout",
+            Default = 999999
+        )]
+        public required int Timeout { get; set; }
     }
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes
 
@@ -60,7 +68,7 @@ public static class Program
     {
         Initialize(arguments.ExapunksDirectory);
 
-        SolutionData result = Simulate(arguments.SolutionFilepath);
+        SolutionData result = Simulate(arguments.SolutionFilepath, arguments.Timeout);
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
@@ -106,7 +114,7 @@ public static class Program
         harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 
-    public static SolutionData Simulate(string solutionFile)
+    public static SolutionData Simulate(string solutionFile, int timeout)
     {
         Solution solution = new(solutionFile);
 
@@ -121,7 +129,7 @@ public static class Program
             Simulation simulation = solution.CreateSimulation(testIndex);
             codeSize ??= simulation.CodeSize;
 
-            for (int i = 0; i < 999999 && !simulation.Completed; i++)
+            for (int i = 0; i < timeout && !simulation.Completed; i++)
             {
                 simulation.Step();
             }
