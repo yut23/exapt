@@ -87,6 +87,10 @@ public static class Program
         Wrappers.GameLogic.Instance = new Wrappers.GameLogic();
         Wrappers.GameLogic.Instance.InitializeFontsA(() => { });
         Wrappers.GameLogic.Instance.InitializeFontsB();
+
+        // patch out steam calls (this loads the classes from SteamPatch.cs)
+        HarmonyLib.Harmony harmony = new(nameof(Program));
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 
     public static SolutionData Simulate(string solutionFile)
