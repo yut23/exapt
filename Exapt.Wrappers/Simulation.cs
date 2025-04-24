@@ -90,7 +90,8 @@ public class Simulation : NonStaticWrapper<Simulation>
             return currentPuzzleCompleteCheckPrefix!.Invoke(new(__instance));
         }
 
-        harmony.UnpatchAll();
+        // undo any previous patches made by this Harmony instance
+        harmony.UnpatchAll(harmony.Id);
 
         if (prefix is not null)
         {
