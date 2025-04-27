@@ -15,6 +15,11 @@ public abstract class NonStaticWrapper<T>(object inner) : Wrapper<T>
         return Utils.Get(Inner, fieldName);
     }
 
+    protected void Set(string fieldName, object? value)
+    {
+        Utils.Set(Inner, fieldName, value);
+    }
+
     protected object? Call(string methodName, params object[] arguments)
     {
         return Utils.WithWorkingDirectory(

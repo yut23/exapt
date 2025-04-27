@@ -19,6 +19,17 @@ internal static class Utils
         return field.GetValue(receiver);
     }
 
+    internal static void Set(object receiver, string fieldName, object? value)
+    {
+        Type type = receiver.GetType();
+        FieldInfo field =
+            type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+            ?? throw new FindMemberException(
+                $@"Failed to find field ""{fieldName}"" in type ""${type.AssemblyQualifiedName}"""
+            );
+        field.SetValue(receiver, value);
+    }
+
     internal static object? GetStatic(Type type, string fieldName)
     {
         FieldInfo field =

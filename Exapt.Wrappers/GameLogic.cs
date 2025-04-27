@@ -18,6 +18,13 @@ public class GameLogic : NonStaticWrapper<GameLogic>
             SetStatic("#=qEACwyfrjJQwoldN_MUIRWw==", (value ?? throw new ArgumentNullException(nameof(value))).Inner);
     }
 
+    public Config Config
+    {
+        get => new(Get("#=qva4U4dCcSHNzBL8wmivqlg==")!);
+        set =>
+            Set("#=qva4U4dCcSHNzBL8wmivqlg==", (value ?? throw new ArgumentNullException(nameof(value))).Inner);
+    }
+
     public GameLogic(object inner)
         : base(inner) { }
 

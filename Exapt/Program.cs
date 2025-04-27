@@ -116,11 +116,19 @@ public static class Program
         };
         NativeLibrary.SetDllImportResolver(Assembly.Load("Burbank"), DllImportResolver);
 
+        // apply patches before doing any initialization
+        HarmonyLib.Harmony harmony = new(nameof(Program));
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
+
         Wrappers.Meta.Globals.ExapunksDirectory = exapunksDirectory;
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
         Wrappers.Strings.Initialize();
         Wrappers.Puzzles.Initialize();
-        Wrappers.GameLogic.Instance = new Wrappers.GameLogic();
+        Wrappers.GameLogic.Instance = new Wrappers.GameLogic()
+        {
+            // I don't think this file is ever written
+            Config = new Wrappers.Config("config.cfg")
+        };
         try
         {
             Wrappers.Renderer.Initialize(Wrappers.RendererType.Direct3D, false);
@@ -135,10 +143,6 @@ public static class Program
         }
         Wrappers.GameLogic.Instance.InitializeFontsA(() => { });
         Wrappers.GameLogic.Instance.InitializeFontsB();
-
-        // patch out steam calls (this loads the classes from SteamPatch.cs)
-        HarmonyLib.Harmony harmony = new(nameof(Program));
-        harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 
     public static SolutionData Simulate(string solutionFile, int timeout)
