@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using CommandLine;
 using CommandLine.Text;
 using Newtonsoft.Json;
@@ -74,6 +75,29 @@ public static class Program
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
+    private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            // note: without setting LD_LIBRARY_PATH, these will resolve to the
+            // system libraries, not the ones under {exapunksDirectory}/lib64
+            string? mappedName = libraryName switch
+            {
+                "SDL2.dll" => "libSDL2-2.0.so.0",
+                "SDL2_image.dll" => "libSDL2_image-2.0.so.0",
+                "SDL2_mixer.dll" => "libSDL2_mixer-2.0.so.0",
+                "libvorbisfile.dll" => "libvorbisfile.so.3",
+                _ => null,
+            };
+            return mappedName is not null
+                ? NativeLibrary.Load(mappedName, assembly, searchPath)
+                : IntPtr.Zero;
+        }
+
+        // Otherwise, fallback to default import resolver.
+        return IntPtr.Zero;
+    }
+
     public static void Initialize(string exapunksDirectory)
     {
         exapunksDirectory = Path.GetFullPath(exapunksDirectory);
@@ -90,6 +114,7 @@ public static class Program
                 ? Assembly.LoadFile(Path.Join(exapunksDirectory, assemblyFileName))
                 : null;
         };
+        NativeLibrary.SetDllImportResolver(Assembly.Load("Burbank"), DllImportResolver);
 
         Wrappers.Meta.Globals.ExapunksDirectory = exapunksDirectory;
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
