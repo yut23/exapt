@@ -2,6 +2,8 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
 
 namespace Exapt;
@@ -22,6 +24,40 @@ internal static class PatchSteamUserStats
     public static bool StoreStatsPrefix()
     {
         return false;
+    }
+}
+
+// Disable the other Steam calls by overwriting a build-time constant
+[HarmonyPatch]
+internal static class PatchReadonlyGlobals
+{
+    public static IEnumerable<MethodBase> TargetMethods()
+    {
+        MethodBase? method = Type.GetType("#=qD_usaxHu0XL9_OQn7XltrQ==, Burbank")?.GetConstructor(
+            BindingFlags.NonPublic | BindingFlags.Static, []
+        );
+        if (method is not null)
+        {
+            yield return method;
+        }
+    }
+
+    public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    {
+        List<CodeInstruction> codes = new(instructions);
+        FieldInfo? targetField = Type.GetType("#=qD_usaxHu0XL9_OQn7XltrQ==, Burbank")!.GetField(
+            "#=q2OFH6JrUOETgdwoCqXZcwfL0QOKQKOpwpwsnPngDHwo="
+        );
+        ArgumentNullException.ThrowIfNull(targetField);
+        for (int i = 0; i + 1 < codes.Count; i++)
+        {
+            if (codes[i].opcode == OpCodes.Ldc_I4_1 && codes[i + 1].StoresField(targetField))
+            {
+                codes[i].opcode = OpCodes.Ldc_I4_0;
+            }
+        }
+
+        return codes.AsEnumerable();
     }
 }
 
