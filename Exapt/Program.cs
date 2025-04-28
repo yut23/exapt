@@ -19,11 +19,12 @@ public static class Program
     {
         [Value(
             0,
-            MetaName = "solution-file",
-            HelpText = "The path to the solution file to be validated.",
+            Min = 1,
+            MetaName = "solution-files",
+            HelpText = "The path(s) to the solution file(s) to be validated.",
             Required = true
         )]
-        public required string SolutionFilepath { get; set; }
+        public required IEnumerable<string> SolutionPaths { get; set; }
 
         [Option(
             'e',
@@ -68,8 +69,23 @@ public static class Program
     {
         Initialize(arguments.ExapunksDirectory);
 
-        SolutionData result = Simulate(arguments.SolutionFilepath, arguments.ExapunksDirectory, arguments.Timeout);
-        Console.WriteLine(JsonConvert.SerializeObject(result));
+        foreach (string solutionPath in arguments.SolutionPaths)
+        {
+            if (arguments.SolutionPaths.Count() > 1)
+            {
+                Console.WriteLine(solutionPath);
+            }
+            try
+            {
+                SolutionData result = Simulate(solutionPath, arguments.ExapunksDirectory, arguments.Timeout);
+                Console.WriteLine(JsonConvert.SerializeObject(result));
+            }
+            catch (SolutionFileLoadException e)
+            {
+                // custom level, warn and go on
+                Console.Error.WriteLine(e);
+            }
+        }
     }
 
     private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
