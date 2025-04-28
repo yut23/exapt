@@ -22,10 +22,7 @@ public abstract class NonStaticWrapper<T>(object inner) : Wrapper<T>
 
     protected object? Call(string methodName, params object[] arguments)
     {
-        return Utils.WithWorkingDirectory(
-            Globals.ExapunksDirectory!,
-            () => Utils.CallNonStatic(Inner, methodName, arguments)
-        );
+        return Utils.CallNonStatic(Inner, methodName, arguments);
     }
 
     protected static object? CallConstructor(params object[] arguments)
@@ -82,9 +79,6 @@ public class Wrapper<T>
 
     protected static object? CallStatic(string methodName, params object[] arguments)
     {
-        return Utils.WithWorkingDirectory(
-            Globals.ExapunksDirectory!,
-            () => Utils.CallStatic(WrappedType, methodName, arguments)
-        );
+        return Utils.CallStatic(WrappedType, methodName, arguments);
     }
 }

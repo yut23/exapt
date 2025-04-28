@@ -80,19 +80,4 @@ internal static class Utils
             );
         return method.Invoke(receiver, BindingFlags.DoNotWrapExceptions, null, [.. arguments], null);
     }
-
-    internal static T WithWorkingDirectory<T>(string directory, Func<T> func)
-    {
-        string originalDirectory = Directory.GetCurrentDirectory();
-        Directory.SetCurrentDirectory(directory);
-        try
-        {
-            T returnValue = func();
-            return returnValue;
-        }
-        finally
-        {
-            Directory.SetCurrentDirectory(originalDirectory);
-        }
-    }
 }

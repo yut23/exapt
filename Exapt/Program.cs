@@ -45,7 +45,6 @@ public static class Program
 
     private static void Main(string[] args)
     {
-        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
         Parser parser = new(p => p.HelpWriter = null);
         ParserResult<Arguments> parserResult = parser.ParseArguments<Arguments>(args);
         _ = parserResult
@@ -67,11 +66,9 @@ public static class Program
 
     private static void InnerMain(Arguments arguments)
     {
-        // resolve the file path before the initialization messes with the CWD
-        string resolvedSolutionFilepath = Path.GetFullPath(arguments.SolutionFilepath);
         Initialize(arguments.ExapunksDirectory);
 
-        SolutionData result = Simulate(resolvedSolutionFilepath, arguments.Timeout);
+        SolutionData result = Simulate(arguments.SolutionFilepath, arguments.ExapunksDirectory, arguments.Timeout);
         Console.WriteLine(JsonConvert.SerializeObject(result));
     }
 
@@ -100,7 +97,13 @@ public static class Program
 
     public static void Initialize(string exapunksDirectory)
     {
+        // EXAPUNKS assumes numbers are formatted with dots, not commas
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+        CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+        string currentDirectory = Directory.GetCurrentDirectory();
         exapunksDirectory = Path.GetFullPath(exapunksDirectory);
+        Directory.SetCurrentDirectory(exapunksDirectory);
 
         AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
         {
@@ -120,7 +123,6 @@ public static class Program
         HarmonyLib.Harmony harmony = new(nameof(Program));
         harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-        Wrappers.Meta.Globals.ExapunksDirectory = exapunksDirectory;
         Wrappers.Globals.SetRandom(new Wrappers.Random(1));
         Wrappers.Strings.Initialize();
         Wrappers.Puzzles.Initialize();
@@ -143,50 +145,61 @@ public static class Program
         }
         Wrappers.GameLogic.Instance.InitializeFontsA(() => { });
         Wrappers.GameLogic.Instance.InitializeFontsB();
+
+        Directory.SetCurrentDirectory(currentDirectory);
     }
 
-    public static SolutionData Simulate(string solutionFile, int timeout)
+    public static SolutionData Simulate(string solutionFile, string exapunksDirectory, int timeout)
     {
         Solution solution = new(solutionFile);
-
-        Simulation.UseOptimizationsForPuzzle(solution.PuzzleId);
-
         bool failed = false;
         int worstCycles = 0;
         int? codeSize = null;
         int worstActivity = 0;
-        for (int testIndex = 0; testIndex < 100; testIndex++)
+
+        string currentDirectory = Directory.GetCurrentDirectory();
+        Directory.SetCurrentDirectory(exapunksDirectory);
+
+        try
         {
-            Simulation simulation = solution.CreateSimulation(testIndex);
-            codeSize ??= simulation.CodeSize;
+            Simulation.UseOptimizationsForPuzzle(solution.PuzzleId);
 
-            for (int i = 0; i < timeout && !simulation.Completed; i++)
+            for (int testIndex = 0; testIndex < 100; testIndex++)
             {
-                simulation.Step();
-            }
+                Simulation simulation = solution.CreateSimulation(testIndex);
+                codeSize ??= simulation.CodeSize;
 
-            if (simulation.Completed)
-            {
-                worstCycles = Math.Max(worstCycles, simulation.Cycles);
-                worstActivity = Math.Max(worstActivity, simulation.Activity);
-            }
-            else
-            {
-                failed = true;
-                break;
+                for (int i = 0; i < timeout && !simulation.Completed; i++)
+                {
+                    simulation.Step();
+                }
+
+                if (simulation.Completed)
+                {
+                    worstCycles = Math.Max(worstCycles, simulation.Cycles);
+                    worstActivity = Math.Max(worstActivity, simulation.Activity);
+                }
+                else
+                {
+                    failed = true;
+                    break;
+                }
             }
         }
+        finally
+        {
+            Directory.SetCurrentDirectory(currentDirectory);
+        }
+
         return new SolutionData()
         {
             PuzzleId = solution.PuzzleId,
-            Statistics = failed
-                ? null
-                : new SolutionStatistics
-                {
-                    Cycles = worstCycles,
-                    Size = codeSize ?? throw new UnreachableException(),
-                    Activity = worstActivity,
-                },
+            Statistics = failed ? null : new SolutionStatistics
+            {
+                Cycles = worstCycles,
+                Size = codeSize ?? throw new UnreachableException(),
+                Activity = worstActivity,
+            },
         };
     }
 }

@@ -12,10 +12,9 @@ public class Test
     [Test]
     public void Simulate()
     {
-        Program.Initialize(
-            Environment.GetEnvironmentVariable("EXAPUNKS_DIR")
-                ?? throw new MissingEnvironmentVariableException(@"Environment variable ""EXAPUNKS_DIR"" not set")
-        );
+        string exapunksDir = Environment.GetEnvironmentVariable("EXAPUNKS_DIR")
+         ?? throw new MissingEnvironmentVariableException(@"Environment variable ""EXAPUNKS_DIR"" not set");
+        Program.Initialize(exapunksDir);
 
         JObject expectedResults = JObject.Parse(File.ReadAllText("resources/expected_results.json"))!;
         string[] solutionFiles = Directory.GetFiles("resources/solutions", "*", SearchOption.AllDirectories);
@@ -34,7 +33,7 @@ public class Test
             );
 
             Stopwatch stopwatch = Stopwatch.StartNew();
-            SolutionData result = Program.Simulate(solutionFile, 999999);
+            SolutionData result = Program.Simulate(solutionFile, exapunksDir, 999999);
             stopwatch.Stop();
             TestContext.Progress.WriteLine($@"Solution ""{solutionFile}"" finished in {stopwatch.Elapsed}");
 
