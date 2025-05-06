@@ -24,4 +24,15 @@ public class Solution
     {
         return new Simulation(this, testIndex);
     }
+
+    public SolutionStatistics? ReadStatistics()
+    {
+        Dictionary<int, int> score = inner.Score;
+        return score.Count == 3 ? new SolutionStatistics
+        {
+            Cycles = score[0],
+            Size = score[1],
+            Activity = score[2],
+        } : null;
+    }
 }

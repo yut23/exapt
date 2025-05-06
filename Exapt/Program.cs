@@ -41,6 +41,14 @@ public static class Program
             Default = 999999
         )]
         public required int Timeout { get; set; }
+
+        [Option(
+            'p',
+            "parse-only",
+            HelpText = "Parse the embedded scores instead of running the full simulation",
+            Default = false
+        )]
+        public bool ParseOnly { get; set; }
     }
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes
 
@@ -77,7 +85,9 @@ public static class Program
             }
             try
             {
-                SolutionData result = Simulate(solutionPath, arguments.ExapunksDirectory, arguments.Timeout);
+                SolutionData result = arguments.ParseOnly
+                    ? Parse(solutionPath)
+                    : Simulate(solutionPath, arguments.ExapunksDirectory, arguments.Timeout);
                 Console.WriteLine(JsonConvert.SerializeObject(result));
             }
             catch (SolutionFileLoadException e)
@@ -163,6 +173,16 @@ public static class Program
         Wrappers.GameLogic.Instance.InitializeFontsB();
 
         Directory.SetCurrentDirectory(currentDirectory);
+    }
+
+    public static SolutionData Parse(string solutionFile)
+    {
+        Solution solution = new(solutionFile);
+        return new SolutionData()
+        {
+            PuzzleId = solution.PuzzleId,
+            Statistics = solution.ReadStatistics(),
+        };
     }
 
     public static SolutionData Simulate(string solutionFile, string exapunksDirectory, int timeout)

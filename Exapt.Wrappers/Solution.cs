@@ -2,6 +2,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
 // distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System.Collections;
 using Exapt.Wrappers.Meta;
 
 namespace Exapt.Wrappers;
@@ -10,6 +11,23 @@ namespace Exapt.Wrappers;
 public class Solution : NonStaticWrapper<Solution>
 {
     public PuzzleId PuzzleId => new(Call("#=q0bXK6vTpnQXmi0XWqqn0yA==")!);
+
+    public Dictionary<int, int> Score
+    {
+        get
+        {
+            object dict = Get("#=q9AyVqDGcPv_DK80o9gwBpA==")!;
+            // use IDictionary so we don't have to deal with the obfuscated
+            // Metric type. unfortunately, it doesn't support linq methods,
+            // so we have to use a loop
+            Dictionary<int, int> wrapped = [];
+            foreach (DictionaryEntry kvp in (IDictionary)dict)
+            {
+                wrapped[(int)kvp.Key] = (int)kvp.Value!;
+            }
+            return wrapped;
+        }
+    }
 
     public IEnumerable<SolutionExa> SolutionExas
     {
